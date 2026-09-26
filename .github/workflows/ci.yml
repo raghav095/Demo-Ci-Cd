@@ -27,6 +27,15 @@ jobs:
       - name: Run tests
         run: |
           pytest -v
+      - name: Check secret
+        env:
+          DEMO_SECRET: ${{ secrets.DEMO_SECRET }}
+        run: |
+          if [ -n "$DEMO_SECRET" ]; then
+            echo "Secret is available."
+          else
+            echo "Secret is not configured."
+          fi
   build:
     name: Build Application
     needs: test
