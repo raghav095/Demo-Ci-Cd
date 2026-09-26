@@ -1,6 +1,7 @@
-import re
+import warnings
 
 def add(a, b):
+    warnings.warn("datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version.", DeprecationWarning)
     return a + b
 
 
