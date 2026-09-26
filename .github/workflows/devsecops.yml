@@ -118,11 +118,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Log in to Docker Hub
-        run: echo "Simulating Docker Hub Login"
-
-      - name: Push Docker image
-        run: echo "Simulating Docker image push"
+      - name: Check Docker Hub Token Secret
+        env:
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+        run: |
+          if [ -n "$DOCKERHUB_TOKEN" ]; then
+            echo "DOCKERHUB_TOKEN secret is available."
+          else
+            echo "DOCKERHUB_TOKEN secret is not configured."
+          fi
 
   deploy:
     name: Deploy to Kubernetes
